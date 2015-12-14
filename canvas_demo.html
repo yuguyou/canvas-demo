@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="charset" content="utf-8">
+  <title>canvas</title>
+</head>
+
+<body>
+  <div id="container">
+    <div id="graph-container" style="height: 100%; width: 100%;">
+    <canvas id="new-canvas" width="1366" height="297" style="position: absolute;"></canvas>
+    </div>
+  </div>
+  <style type="text/css">
+    #graph-container {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+      }
+    </style>
+<script>
+    var canvas = document.getElementById('new-canvas');
+    var context = canvas.getContext('2d');
+
+//SVG:描述图形的XML语法            (可以通过移除相应元素改变图型)
+//Canvas:基于JavaScript的绘图API   (需要把当前的图形擦除再重绘图形来改变图形)
+  //通过调用canvas提供的方法通过构建XML元素来使用SVG绘制图形
+
+//<canvas>标签:
+    //调用getContext()获取canvas绘制图形的对象：参数‘2d’，‘webgl’
+        //getContext('webgl') 获取在画布上绘制三维图形的对象
+        //getContext('2d') 获取在画布上绘制二维图形的对象
+
+// getContext()  返回一个对象，指出访问绘图功能必要的API
+
+
+/*1 绘制简单文本
+    var canvas = document.getElementById('new-canvas');
+    var context = canvas.getContext('2d');
+    context.font = '38pt Arial'
+    context.fillStyle = 'cornflowerblue';
+    context.fillText('hello canvas', canvas.width/2 - 150, canvas.height/2 + 20);
+*/
+
+/*2
+    context.lineJoin = 'round'; //lineJoin 当两条线条交汇时的显示效果 bevel:斜角 round:圆角 miter(默认):创建尖角
+    context.lineWidth = 4;
+
+    context.fillStyle = '#EC5148'; // 填充绘画的颜色
+    context.fillRect(170, 100, 60, 80); //(左上角x坐标，y坐标， 巨型宽度， 高度)
+
+    context.strokeStyle = '#EC5148'; // 用于笔触的颜色设置
+    context.strokeRect(100, 100, 60, 80); //为矩形描边 note:使用 strokeStyle 属性来设置笔触的颜色
+    // context.clearRect(0, 0, canvas.width, canvas.height);  擦除坐标区域内画布上的内容
+*/
+
+///*3 基于路径绘制
+    //仅有两个用来立即绘制图形的方法(strokeRect, fillRect)
+    context.fillStyle="#FF0000";
+    context.beginPath();
+    context.arc(70,18,15,0,Math.PI*2,true);
+    context.closePath();
+    context.fill();
+
+    var img=new Image()
+    img.src="image.png"
+    cxt.drawImage(img,10,10);
+//*/
+
+    </script>
+</body>
+
+</html>

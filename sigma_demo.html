@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="charset" content="utf-8">
+  <title>Starry Cloud</title>
+  <script src="./sigma.js"></script>
+  <script src="./dagre.js"></script>
+  <script src="./plugins.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="graph-container" style="height: 100%; width: 100%;">
+    </div>
+  </div>
+  <style type="text/css">
+    #graph-container {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+      }
+    </style>
+    <script>
+      var i,
+        s,
+        N = 100,
+        E = 150,
+        g = {
+          nodes: [],
+          edges: []
+        };
+
+      // 节点数据
+      for (i = 0; i < N; i++)
+        g.nodes.push({
+          id: 'n' + i,
+          label: 'Node ' + i,
+          x: Math.random(),  // x轴坐标
+          y: Math.random(),  // y轴坐标
+          size: 3,
+        });
+
+      // 连线数据
+      for (i = 0; i < E; i++) {
+        var source = 'n' + (Math.random() * N | 0);
+        var target = 'n' + (Math.random() * N | 0);
+
+        g.edges.push({
+          id: 'e' + i,
+          source: source,  // 开始节点(node id)
+          target: target,  // 目标节点(node id)
+          size: 1,
+          type: 'arrow',  //连线样式
+        });
+      }
+
+
+      sigma.classes.graph.addMethod('neighbors', function(nodeId) {
+        var k,
+            neighbors = {},
+            index = this.allNeighborsIndex[nodeId] || {};
+
+        for (k in index)
+          neighbors[k] = this.nodesIndex[k];
+
+        return neighbors;
+      });
+
+
+
+      // Instantiate sigma:
+      s = new sigma({
+        graph: g,
+        renderer: {
+          container: document.getElementById('graph-container'),
+          type: 'canvas'  // canvas 或 webgl 渲染器
+        },
+        settings: {
+          minNodeSize: 6,
+          maxNodeSize: 6,
+          maxEdgeSize: 1,
+          minEdgeSize: 1,
+          drawHoverNodes: true,
+          enableEdgeHovering: true,
+          defaultEdgeHoverColor: '#33CCFF',
+          edgeHoverColor: '#33CCFF',
+          defaultNodeHoverColor: '#33CCFF',
+          nodeHoverColor: '#33CCFF',
+          defaultNodeColor: '#ec5148',
+        }
+      });
+
+      s.refresh();
+      console.log(s.graph.nodes());
+      console.log(s.graph.edges());
+
+
+      //////////plugin////////////////////
+/*1
+      //  DAG 布局配置
+      // dagre插件需要依赖dagre.js
+      var dagreListener = sigma.layouts.dagre.configure(s, {
+        directed: true, // 是否指定连线的方向
+        rankdir: 'TB',  // 节点排列方向（TB, BT, LR, or RL）
+        easing: 'quadraticInOut', // 布局转换时的动画
+        duration: 400,   // 动画时长
+      });
+      // Start the DAG layout:
+      sigma.layouts.dagre.start(s);
+*/
+
+/*2
+      var activeState = sigma.plugins.activeState(s); //批量选取或节点拖动等插件需要
+      // Initialize the dragNodes plugin:
+      var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+*/
+
+
+/*3
+      s.bind('clickNode', function(e) {
+        var nodeId = e.data.node.id,
+            edgeId = 'e' + e.data.node.id,
+            nodeX = e.data.node.x,
+            nodeY = e.data.node.y,
+            toKeep = s.graph.neighbors(nodeId);
+        toKeep[nodeId] = e.data.node;
+
+        s.graph.nodes().forEach(function(n) {
+          if (toKeep[n.id])
+            n.color = n.originalColor;
+          else
+            n.color = '#eee';
+        });
+
+        s.graph.edges().forEach(function(e) {
+          if (toKeep[e.source] && toKeep[e.target])
+            e.color = e.originalColor;
+          else
+            e.color = '#eee';
+        });
+
+        var gn = N;
+        var ge = E;
+        N = N + 200;
+        E = E + 300;
+        g = {
+          nodes: [],
+          edges: []
+        };
+
+      // Generate a random graph:
+      for (i = gn; i < N; i++)
+        g.nodes.push({
+          id: 'n' + i,
+          label: 'Node ' + i,
+          x: Math.random(),
+          y: Math.random(),
+          size: 3,
+          // fixed: Math.random() > 0.9,
+        });
+      // node 位置计算
+      var space = 0,
+          direction = 1,
+          countX = 0,
+          layerY = 1,
+          spaceX = 100,
+          spaceY = 200;
+
+      g.nodes.forEach(function(node){
+          direction = -direction;
+          if (direction < 0){
+            space = (countX * direction - 1)/2 * spaceX
+          }else if(direction > 0){
+            space = countX * direction/2 * spaceX
+          }
+
+          node.x = nodeX + space;
+          node.y = nodeY + spaceY * layerY;
+
+          // 定位计算
+          countX = countX + 1;
+          if (countX > 50){
+            countX = 0;
+            layerY += 1;
+          }
+      });
+      // 定位计算end
+      for (i = ge; i < E; i++) {
+        var source = 'n' + (Math.random() * N | 0);
+        var target = 'n' + (Math.random() * N | 0);
+
+        g.edges.push({
+          id: 'e' + i,
+          source: source,
+          target: target,
+          size: 1,
+          type: 'arrow',
+        });
+      }
+      s.graph.read(g);
+
+      s.refresh();
+      //sigma.layouts.dagre.start(s);
+    });
+*/
+    </script>
+</body>
+
+</html>
