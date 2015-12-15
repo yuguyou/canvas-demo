@@ -21,7 +21,7 @@
       }
     </style>
 <script>
-var myCanvas = document.getElementById('new-canvas');
+/*var myCanvas = document.getElementById('new-canvas');
 
 myCanvas.width = 500;
 myCanvas.height = 500;
@@ -53,7 +53,7 @@ ctx.save();
 ctx.fillStyle = "#fff";
 ctx.beginPath();
 ctx.arc(0,0,80,0,2*Math.PI);
-ctx.fill()
+ctx.fill();
 
 ctx.restore();
 
@@ -90,19 +90,29 @@ function drawSector (split,r,text) {
 
     ctx.restore();
 }
+*/
 
-/*
-	var canvas = document.getElementById('new-canvas');
-	var ctx = canvas.getContext('2d');
+  var canvas = document.getElementById('new-canvas');
+  var ctx = canvas.getContext('2d');
 
-	ctx.beginPath();
-    ctx.strokeStyle="#ec5148";
-	ctx.lineWidth = 30;
-	ctx.arc(200, 200, 50, 0.75*Math.PI, 1.25*Math.PI);
-	ctx.stroke();
-	ctx.arc(200, 200, 50, 1.25*Math.PI, 1.75*Math.PI);
-	ctx.stroke();
-*/	
+  ctx.beginPath();
+  ctx.strokeStyle="#ec5148";
+  ctx.lineWidth = 30;
+  ctx.arc(200, 200, 40, 0.26*Math.PI, 0.75*Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 200, 40, 0.76*Math.PI, 1.25*Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 200, 40, 1.26*Math.PI, 1.75*Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 200, 40, 1.76*Math.PI, 0.25*Math.PI);
+  ctx.stroke();
+
+
+
+
 //SVG:描述图形的XML语法            (可以通过移除相应元素改变图型)
 //Canvas:基于JavaScript的绘图API   (需要把当前的图形擦除再重绘图形来改变图形)
   //通过调用canvas提供的方法通过构建XML元素来使用SVG绘制图形
