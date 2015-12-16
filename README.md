@@ -1,5 +1,6 @@
 ##sigma是什么?
  * 一个基于&lt;canvas>标签绘制点和线图形的JavaScript库，可使用canvas或webgl两种渲染器
+
 ##Linkurious
  * sigma的插件集
 
