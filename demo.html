@@ -151,30 +151,33 @@
 
 
       window.ring = {};
+      window.ring_list = [];
       function mouseMove(e){
         var canvas = document.getElementsByClassName('ring')[0];
         ctx = canvas.getContext('2d')
 
-        ctx.beginPath();
-        ctx.arc(ring.x, ring.y, 40, 1.76*Math.PI, 0.25*Math.PI);
-        if (ctx.isPointInPath(e.clientX, e.clientY)){
+        ring_list.forEach(function(r){
+            ctx.beginPath();
+            ctx.lineWidth = 40;
+            ctx.arc(ring.x, ring.y, r.r, r.sAngle, r.eAngle);
+            if (ctx.isPointInPath(e.clientX, e.clientY)){
+              ctx.strokeStyle="#eee";
+            }else{
+              ctx.strokeStyle="#ec5148";
+            }
+            ctx.stroke();
+
+          ctx.beginPath();
           ctx.strokeStyle="#eee";
-          ctx.stroke();
-        }else{
-          ctx.strokeStyle="#ec5148";
-          ctx.stroke();
-        }
-
-        ctx.beginPath();
-        ctx.lineWidth = 40;
-        ctx.arc(ring.x, ring.y, 40, 0, 2*Math.PI);
-        if (!ctx.isPointInPath(e.clientX, e.clientY)){
-          setTimeout(function(){ctx.clearRect(0, 0, canvas.width, canvas.height)}, 100);
-          document.body.removeEventListener('mousemove', mouseMove, false);
-          canvas.remove();
-        }
+          ctx.lineWidth = 40;
+          ctx.arc(r.x, r.y, r.r, 0, 2.5*Math.PI);
+          if (!ctx.isPointInPath(e.clientX, e.clientY)){
+            setTimeout(function(){ctx.clearRect(0, 0, canvas.width, canvas.height)}, 100);
+            document.body.removeEventListener('mousemove', mouseMove, false);
+            canvas.remove();
+          }
+        });
       }
-
 
 
 
@@ -187,21 +190,21 @@
         var y = MouseCoord.y;
         var ctx = canvas.getContext('2d');
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.beginPath();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ring_list = [
+          {x: x, y: y, r: 40, sAngle: 0.26*Math.PI, eAngle: 0.75*Math.PI},
+          {x: x, y: y, r: 40, sAngle: 0.76*Math.PI, eAngle: 1.25*Math.PI},
+          {x: x, y: y, r: 40, sAngle: 1.26*Math.PI, eAngle: 1.75*Math.PI},
+          {x: x, y: y, r: 40, sAngle: 1.76*Math.PI, eAngle: 0.25*Math.PI}
+        ];
+
         ctx.strokeStyle="#ec5148";
         ctx.lineWidth = 30;
-        ctx.arc(x, y, 40, 0.26*Math.PI, 0.75*Math.PI);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(x, y, 40, 0.76*Math.PI, 1.25*Math.PI);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(x, y, 40, 1.26*Math.PI, 1.75*Math.PI);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(x, y, 40, 1.76*Math.PI, 0.25*Math.PI);
-        ctx.stroke();
+        ring_list.forEach(function(ring){
+          ctx.beginPath();
+          ctx.arc(ring.x, ring.y, ring.r, ring.sAngle, ring.eAngle);
+          ctx.stroke();
+        });
 
         document.body.addEventListener('mousemove', mouseMove, false);
 

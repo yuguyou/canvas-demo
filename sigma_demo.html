@@ -23,10 +23,111 @@
       }
     </style>
     <script>
+/* demo1
+     var g = {
+          nodes: [],
+          edges: []
+          };
+
+      // 节点数据
+      g.nodes = [
+        { id: 'n1',
+          label: 'Node1',
+          x: Math.random(),  // x轴坐标
+          y: Math.random(),  // y轴坐标
+          size: 1
+        },{id: 'n2',
+          label: 'Node2',
+          x: Math.random(),
+          y: Math.random(),
+          size: 2
+        },{id: 'n3',
+          label: 'Node3',
+          x: Math.random(),
+          y: Math.random(),
+          size: 3
+        },{id: 'n4',
+          label: 'Node4',
+          x: Math.random(),
+          y: Math.random(),
+          size: 4
+        },{id: 'n5',
+          label: 'Node5',
+          x: Math.random(),
+          y: Math.random(),
+          size: 10
+        }
+      ];
+
+      // 连线数据
+        g.edges = [
+          { id: 'e1',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n2',  // 目标节点(node id)
+            size: 2,
+            type: 'curvedArrow',  //连线样式
+          },{ id: 'e2',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n3',  // 目标节点(node id)
+            size: 1,
+            type: 'arrow',  //连线样式
+          },{ id: 'e3',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n4',  // 目标节点(node id)
+            size: 3,
+            type: 'arrow',  //连线样式
+          },{ id: 'e4',
+            source: 'n3',  // 开始节点(node id)
+            target: 'n2',  // 目标节点(node id)
+            size: 4,
+            type: 'curvedArrow',  //连线样式
+          },{ id: 'e5',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n2',  // 目标节点(node id)
+            size: 1,
+            type: 'arrow',  //连线样式
+          },{ id: 'e6',
+            source: 'n3',  // 开始节点(node id)
+            target: 'n5',  // 目标节点(node id)
+            size: 5,
+            type: 'arrow',  //连线样式
+          }
+      ]
+
+
+      // Instantiate sigma:
+      s = new sigma({
+        graph: g,
+        renderer: {
+          container: document.getElementById('graph-container'),
+          type: 'canvas'  // canvas 或 webgl 渲染器
+        },
+        settings: {
+          minNodeSize: 1,
+          maxNodeSize: 10,
+          maxEdgeSize: 1,
+          minEdgeSize: 10,
+          drawHoverNodes: true,
+          enableEdgeHovering: true,
+          defaultEdgeHoverColor: '#33CCFF',
+          edgeHoverColor: '#33CCFF',
+          defaultNodeHoverColor: '#33CCFF',
+          nodeHoverColor: '#33CCFF',
+          defaultNodeColor: '#ec5148',
+        }
+      });
+
+      s.refresh();
+      console.log(s.graph.nodes());
+      console.log(s.graph.edges());
+*/
+
+
+/* demo2
       var i,
         s,
-        N = 100,
-        E = 150,
+        N = 1000,
+        E = 3000,
         g = {
           nodes: [],
           edges: []
@@ -95,10 +196,11 @@
       s.refresh();
       console.log(s.graph.nodes());
       console.log(s.graph.edges());
+*/
 
 
       //////////plugin////////////////////
-/*1
+/* u1
       //  DAG 布局配置
       // dagre插件需要依赖dagre.js
       var dagreListener = sigma.layouts.dagre.configure(s, {
@@ -111,14 +213,14 @@
       sigma.layouts.dagre.start(s);
 */
 
-/*2
+/* u2
       var activeState = sigma.plugins.activeState(s); //批量选取或节点拖动等插件需要
       // Initialize the dragNodes plugin:
       var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
 */
 
 
-/*3
+/* u3
       s.bind('clickNode', function(e) {
         var nodeId = e.data.node.id,
             edgeId = 'e' + e.data.node.id,
