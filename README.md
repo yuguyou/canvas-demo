@@ -1,13 +1,8 @@
-##sigma是什么?
+## sigma是什么?
  * 一个基于&lt;canvas>标签绘制点和线图形的JavaScript库，可使用canvas或webgl两种渲染器
 
-##Linkurious
+## Linkurious
  * sigma的插件集
-
-# Canvas
- * SVG:描述图形的XML语法            (可以通过移除相应元素改变图型)
- * Canvas:基于JavaScript的绘图API   (需要把当前的图形擦除再重绘图形来改变图形)
- * 通过调用canvas提供的方法通过构建XML元素来使用SVG绘制图形
 
 # &lt;canvas>标签:
   * getContext()  返回一个绘图对象
@@ -18,10 +13,13 @@
       var canvas = document.getElementById('new-canvas');
       var ctx = canvas.getContext('2d');
   ```
-  
-  方法属性：
+## Canvas
+ * SVG:描述图形的XML语法            (可以通过移除相应元素改变图型)
+ * Canvas:基于JavaScript的绘图API   (需要把当前的图形擦除再重绘图形来改变图形)
+ * 通过调用canvas提供的方法通过构建XML元素来使用SVG绘制图形
 
-### 文本
+## 方法属性：
+## 文本
     * drawImage(img,x,y,width,height) 在画布上绘制载入图像
     * font() 设置文本内容和字体属性
     * fillStyle 绘画路径的颜色(填充)
@@ -31,7 +29,6 @@
     * clearRect(x, y, width, height) 擦除给定矩形中的内容
 
 ### 图形
-
 #### 直接绘出图形
     * lineWidth 描绘线条宽度
     * fillRect(x, y, width, height)  绘制矩形(被填充)
