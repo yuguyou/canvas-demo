@@ -40,9 +40,10 @@
 /*2 绘制简单文本
     var canvas = document.getElementById('new-canvas');
     var ctx = canvas.getContext('2d');
-    ctx.font = '38pt Arial'
+    ctx.font = '38px Arial'
     ctx.fillStyle = 'cornflowerblue';
-    ctx.fillText('hello canvas', canvas.width/2 - 150, canvas.height/2 + 20);
+    ctx.fillText('hello canvas, this is fillText', 100, 100);
+    ctx.strokeText('hello canvas, this is ', 100, 200);
     // ctx.clearRect(0, 0, canvas.width, canvas.height);  擦除坐标区域内画布上的内容
 */
 
@@ -57,9 +58,11 @@
     // strokeRect 绘制矩形（无填充）
     ctx.strokeStyle = '#aaa'; // 用于笔触的颜色设置
     ctx.strokeRect(180, 100, 60, 80); //为矩形描边 note:使用 strokeStyle 属性来设置笔触的颜色
-    ctx.fill();
+*/
 
-    // rect 创建矩形
+
+/////////////万恶分界线 - 基于路径绘制///////////////////
+/* 4 创建基于路径矩形
     ctx.beginPath();
     ctx.fillStyle = '#EC5148';
     ctx.strokeStyle = '#aaa';
@@ -71,9 +74,7 @@
 */
 
 
-/////////////基于路径绘制///////////////////
-
-/* 第一条直线
+/* 5 第一条直线
   ctx.beginPath();
   ctx.moveTo(0,0); //移动到位置 0,0
   ctx.lineTo(100,100);
@@ -81,8 +82,7 @@
 */
 
 
-/* lineCap 线条末端线帽的样式
-//butt:默认,平直的边缘, round:圆形线帽, square:正方形线帽
+/* 6 lineCap 线条末端线帽的样式(butt:默认,平直的边缘, round:圆形线帽, square:正方形线帽)
   ctx.beginPath();
   ctx.lineWidth=10;
   ctx.lineCap="butt";
@@ -104,7 +104,7 @@
 */
 
 
-/* lineJoin 两线相交的形状 lineJoin miter:默认。创建尖角 round:创建圆角 bevel:创建斜角
+/* 7 lineJoin 两线相交的形状 (lineJoin miter:默认。创建尖角 round:创建圆角 bevel:创建斜角)
 ctx.beginPath();
 ctx.lineWidth=10;
 ctx.strokeStyle = '#aaa';
@@ -116,8 +116,8 @@ ctx.lineTo(20,100);
 ctx.stroke();
 */
 
-/*
-  // 绘制圆
+
+/* 8 绘制圆
   ctx.fillStyle="#FF0000";
   ctx.beginPath();
   ctx.arc(100, 100, 15, 0, Math.PI*2, true);
@@ -126,8 +126,7 @@ ctx.stroke();
 */
 
 
-/*
-  // 环
+/* 9
   ctx.strokeStyle="#FF0000";
   ctx.lineWidth = 30;
   ctx.beginPath();
@@ -137,7 +136,7 @@ ctx.stroke();
 */
 
 
-/*
+/* 10
   var x = 200,
   y = 200,
   r = 60;
