@@ -26,7 +26,7 @@
   var ctx = canvas.getContext('2d');
 
 
-/*1 图片载入
+///*1 图片载入
   //注意：在drawImage之前，应确保图片已经加载完毕,否则canvas将不会显示任何图片。
   var img=new Image();
   img.src="test.jpg";
@@ -34,7 +34,7 @@
     ctx.drawImage(img, 10, 10);
     ctx.drawImage(img, 100, 100);
   }, 500);
-*/
+//*/
 
 
 /*2 绘制简单文本
@@ -122,9 +122,13 @@ ctx.stroke();
   ctx.beginPath();
   ctx.arc(100, 100, 15, 0, Math.PI*2, true);
   ctx.fill();
-  ctx.closePath();
-*/
 
+  // 绘制扇型
+  ctx.beginPath();
+  ctx.arc(200, 200, 15, 0, Math.PI*1.5, true);
+  ctx.lineTo(200, 200);
+  ctx.fill();
+*/
 
 /* 9
   ctx.strokeStyle="#FF0000";
@@ -132,7 +136,6 @@ ctx.stroke();
   ctx.beginPath();
   ctx.arc(200, 200, 50, 0, Math.PI*2, true);
   ctx.stroke();
-  ctx.closePath();
 */
 
 
