@@ -23,7 +23,7 @@
       }
     </style>
     <script>
-/* demo1
+/*
      var g = {
           nodes: [],
           edges: []
@@ -66,6 +66,7 @@
             target: 'n2',  // 目标节点(node id)
             size: 2,
             type: 'curvedArrow',  //连线样式
+            lebel: 'test1',
           },{ id: 'e2',
             source: 'n1',  // 开始节点(node id)
             target: 'n3',  // 目标节点(node id)
@@ -103,10 +104,10 @@
           type: 'canvas'  // canvas 或 webgl 渲染器
         },
         settings: {
-          minNodeSize: 1,
+          minNodeSize: 3,
           maxNodeSize: 10,
-          maxEdgeSize: 1,
-          minEdgeSize: 10,
+          minEdgeSize: 1,
+          maxEdgeSize: 4,
           drawHoverNodes: true,
           enableEdgeHovering: true,
           defaultEdgeHoverColor: '#33CCFF',
@@ -123,11 +124,11 @@
 */
 
 
-/* demo2
+///* demo2
       var i,
         s,
-        N = 1000,
-        E = 3000,
+        N = 40,
+        E = 80,
         g = {
           nodes: [],
           edges: []
@@ -196,11 +197,11 @@
       s.refresh();
       console.log(s.graph.nodes());
       console.log(s.graph.edges());
-*/
+//*/
 
 
       //////////plugin////////////////////
-/* u1
+//* u1
       //  DAG 布局配置
       // dagre插件需要依赖dagre.js
       var dagreListener = sigma.layouts.dagre.configure(s, {
@@ -211,102 +212,61 @@
       });
       // Start the DAG layout:
       sigma.layouts.dagre.start(s);
-*/
+//*/
 
-/* u2
+///* u2
       var activeState = sigma.plugins.activeState(s); //批量选取或节点拖动等插件需要
+      var select = sigma.plugins.select(s, activeState);
       // Initialize the dragNodes plugin:
       var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
-*/
+// */
 
 
-/* u3
+//* u3
       s.bind('clickNode', function(e) {
         var nodeId = e.data.node.id,
             edgeId = 'e' + e.data.node.id,
             nodeX = e.data.node.x,
             nodeY = e.data.node.y,
             toKeep = s.graph.neighbors(nodeId);
-        toKeep[nodeId] = e.data.node;
+        // toKeep[nodeId] = e.data.node;
 
         s.graph.nodes().forEach(function(n) {
           if (toKeep[n.id])
-            n.color = n.originalColor;
+            n.color = '#888888';
           else
-            n.color = '#eee';
+            n.color = '#ec5148';
         });
 
         s.graph.edges().forEach(function(e) {
           if (toKeep[e.source] && toKeep[e.target])
-            e.color = e.originalColor;
+            e.color = '#';
           else
-            e.color = '#eee';
+            e.color = '#ec5148';
         });
-
-        var gn = N;
-        var ge = E;
-        N = N + 200;
-        E = E + 300;
-        g = {
-          nodes: [],
-          edges: []
-        };
-
-      // Generate a random graph:
-      for (i = gn; i < N; i++)
-        g.nodes.push({
-          id: 'n' + i,
-          label: 'Node ' + i,
-          x: Math.random(),
-          y: Math.random(),
-          size: 3,
-          // fixed: Math.random() > 0.9,
-        });
-      // node 位置计算
-      var space = 0,
-          direction = 1,
-          countX = 0,
-          layerY = 1,
-          spaceX = 100,
-          spaceY = 200;
-
-      g.nodes.forEach(function(node){
-          direction = -direction;
-          if (direction < 0){
-            space = (countX * direction - 1)/2 * spaceX
-          }else if(direction > 0){
-            space = countX * direction/2 * spaceX
-          }
-
-          node.x = nodeX + space;
-          node.y = nodeY + spaceY * layerY;
-
-          // 定位计算
-          countX = countX + 1;
-          if (countX > 50){
-            countX = 0;
-            layerY += 1;
-          }
-      });
-      // 定位计算end
-      for (i = ge; i < E; i++) {
-        var source = 'n' + (Math.random() * N | 0);
-        var target = 'n' + (Math.random() * N | 0);
-
-        g.edges.push({
-          id: 'e' + i,
-          source: source,
-          target: target,
-          size: 1,
-          type: 'arrow',
-        });
-      }
-      s.graph.read(g);
 
       s.refresh();
       //sigma.layouts.dagre.start(s);
     });
-*/
+
+  var lassoSetting = {
+      'strokeStyle': 'black',
+      'lineWidth': 2,
+      'fillWhileDrawing': true,
+      'fillStyle': 'rgba(41, 41, 41, 0.2)',
+      'cursor': 'crosshair'
+  };
+
+  var lasso = new sigma.plugins.lasso(s, s.renderers[0], lassoSetting);
+  lasso.bind('selectedNodes', function (event) {
+    var nodes = event.data;
+    console.log(nodes);
+    setTimeout(() => lasso.deactivate(), 1);
+  });
+  s.bind('clickStage', function(e) {
+    lasso.activate();
+  });
+//*/
     </script>
 </body>
 
