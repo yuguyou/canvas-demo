@@ -26,7 +26,8 @@
   var ctx = canvas.getContext('2d');
 
 
-///*1 图片载入
+// 图片载入
+function demo1() {
   //注意：在drawImage之前，应确保图片已经加载完毕,否则canvas将不会显示任何图片。
   var img=new Image();
   img.src="test.jpg";
@@ -34,10 +35,10 @@
     ctx.drawImage(img, 10, 10);
     ctx.drawImage(img, 100, 100);
   }, 500);
-//*/
+}
 
-
-/*2 绘制简单文本
+// 绘制简单文本
+function demo2() {
     var canvas = document.getElementById('new-canvas');
     var ctx = canvas.getContext('2d');
     ctx.font = '38px Arial'
@@ -45,10 +46,10 @@
     ctx.fillText('hello canvas, this is fillText', 100, 100);
     ctx.strokeText('hello canvas, this is ', 100, 200);
     // ctx.clearRect(0, 0, canvas.width, canvas.height);  擦除坐标区域内画布上的内容
-*/
+}
 
-
-/*3 绘制简单矩形
+// 绘制简单矩形
+function demo3() {
     // fillRect  绘制“被填充”的矩形
     ctx.lineJoin = 'round'; // lineJoin 当两条线条交汇时的显示效果 bevel:斜角 round:圆角 miter(默认):创建尖角
     ctx.lineWidth = 6;
@@ -58,31 +59,32 @@
     // strokeRect 绘制矩形（无填充）
     ctx.strokeStyle = '#aaa'; // 用于笔触的颜色设置
     ctx.strokeRect(180, 100, 60, 80); //为矩形描边 note:使用 strokeStyle 属性来设置笔触的颜色
-*/
-
+}
 
 /////////////万恶分界线 - 基于路径绘制///////////////////
-/* 4 创建基于路径矩形
-    ctx.beginPath();
-    ctx.fillStyle = '#EC5148';
-    ctx.strokeStyle = '#aaa';
-    ctx.lineJoin = 'miter';
-    ctx.lineWidth="6";
-    ctx.rect(300,100,20,40);
-    ctx.fill(); //填充当前绘图（路径）
-    ctx.stroke(); //绘制已定义的路径
-*/
+//  创建基于路径矩形
+function demo4() {
+  ctx.beginPath();
+  ctx.fillStyle = '#EC5148';
+  ctx.strokeStyle = '#aaa';
+  ctx.lineJoin = 'miter';
+  ctx.lineWidth="6";
+  ctx.rect(300,100,20,40);
+  ctx.fill(); //填充当前绘图（路径）
+  ctx.stroke(); //绘制已定义的路径
+}
 
-
-/* 5 第一条直线
+// 第一条直线
+function demo5() {
   ctx.beginPath();
   ctx.moveTo(0,0); //移动到位置 0,0
   ctx.lineTo(100,100);
   ctx.stroke();
-*/
+}
 
 
-/* 6 lineCap 线条末端线帽的样式(butt:默认,平直的边缘, round:圆形线帽, square:正方形线帽)
+//  lineCap 线条末端线帽的样式(butt:默认,平直的边缘, round:圆形线帽, square:正方形线帽)
+function demo6() {
   ctx.beginPath();
   ctx.lineWidth=10;
   ctx.lineCap="butt";
@@ -101,23 +103,24 @@
   ctx.moveTo(20,60);
   ctx.lineTo(200,60);
   ctx.stroke();
-*/
+}
 
 
-/* 7 lineJoin 两线相交的形状 (lineJoin miter:默认。创建尖角 round:创建圆角 bevel:创建斜角)
-ctx.beginPath();
-ctx.lineWidth=10;
-ctx.strokeStyle = '#aaa';
-ctx.lineJoin="round";
-ctx.lineCap="square";
-ctx.moveTo(20,20);
-ctx.lineTo(100,50);
-ctx.lineTo(20,100);
-ctx.stroke();
-*/
+//  lineJoin 两线相交的形状 (lineJoin miter:默认。创建尖角 round:创建圆角 bevel:创建斜角)
+function demo7() {
+  ctx.beginPath();
+  ctx.lineWidth=10;
+  ctx.strokeStyle = '#aaa';
+  ctx.lineJoin="round";
+  ctx.lineCap="square";
+  ctx.moveTo(20,20);
+  ctx.lineTo(100,50);
+  ctx.lineTo(20,100);
+  ctx.stroke();
+}
 
-
-/* 8 绘制圆
+// 8 绘制圆
+function demo8() {
   ctx.fillStyle="#FF0000";
   ctx.beginPath();
   ctx.arc(100, 100, 15, 0, Math.PI*2, true);
@@ -128,18 +131,19 @@ ctx.stroke();
   ctx.arc(200, 200, 15, 0, Math.PI*1.5, true);
   ctx.lineTo(200, 200);
   ctx.fill();
-*/
+}
 
-/* 9
+
+function demo9() {
   ctx.strokeStyle="#FF0000";
   ctx.lineWidth = 30;
   ctx.beginPath();
   ctx.arc(200, 200, 50, 0, Math.PI*2, true);
   ctx.stroke();
-*/
+}
 
 
-/* 10
+function demo10() {
   var x = 200,
   y = 200,
   r = 60;
@@ -161,7 +165,7 @@ ctx.stroke();
   ctx.beginPath();
   ctx.arc(x, y, r, 1.76*Math.PI, 0.25*Math.PI);
   ctx.stroke();
-*/
+}
     </script>
 </body>
 
