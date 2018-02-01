@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="charset" content="utf-8">
+  <title>Starry Cloud</title>
+  <script src="./sigma.js"></script>
+  <script src="./dagre.js"></script>
+  <script src="./plugins.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="graph-container" style="height: 100%; width: 100%;">
+    </div>
+  </div>
+  <style type="text/css">
+    #graph-container {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+      }
+    </style>
+    <script>
+/*
+     var g = {
+          nodes: [],
+          edges: []
+          };
+
+      // 节点数据
+      g.nodes = [
+        { id: 'n1',
+          label: 'Node1',
+          x: Math.random(),  // x轴坐标
+          y: Math.random(),  // y轴坐标
+          size: 1
+        },{id: 'n2',
+          label: 'Node2',
+          x: Math.random(),
+          y: Math.random(),
+          size: 2
+        },{id: 'n3',
+          label: 'Node3',
+          x: Math.random(),
+          y: Math.random(),
+          size: 3
+        },{id: 'n4',
+          label: 'Node4',
+          x: Math.random(),
+          y: Math.random(),
+          size: 4
+        },{id: 'n5',
+          label: 'Node5',
+          x: Math.random(),
+          y: Math.random(),
+          size: 10
+        }
+      ];
+
+      // 连线数据
+        g.edges = [
+          { id: 'e1',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n2',  // 目标节点(node id)
+            size: 2,
+            type: 'curvedArrow',  //连线样式
+            lebel: 'test1',
+          },{ id: 'e2',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n3',  // 目标节点(node id)
+            size: 1,
+            type: 'arrow',  //连线样式
+          },{ id: 'e3',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n4',  // 目标节点(node id)
+            size: 3,
+            type: 'arrow',  //连线样式
+          },{ id: 'e4',
+            source: 'n3',  // 开始节点(node id)
+            target: 'n2',  // 目标节点(node id)
+            size: 4,
+            type: 'curvedArrow',  //连线样式
+          },{ id: 'e5',
+            source: 'n1',  // 开始节点(node id)
+            target: 'n2',  // 目标节点(node id)
+            size: 1,
+            type: 'arrow',  //连线样式
+          },{ id: 'e6',
+            source: 'n3',  // 开始节点(node id)
+            target: 'n5',  // 目标节点(node id)
+            size: 5,
+            type: 'arrow',  //连线样式
+          }
+      ]
+
+
+      // Instantiate sigma:
+      s = new sigma({
+        graph: g,
+        renderer: {
+          container: document.getElementById('graph-container'),
+          type: 'canvas'  // canvas 或 webgl 渲染器
+        },
+        settings: {
+          minNodeSize: 3,
+          maxNodeSize: 10,
+          minEdgeSize: 1,
+          maxEdgeSize: 4,
+          drawHoverNodes: true,
+          enableEdgeHovering: true,
+          defaultEdgeHoverColor: '#33CCFF',
+          edgeHoverColor: '#33CCFF',
+          defaultNodeHoverColor: '#33CCFF',
+          nodeHoverColor: '#33CCFF',
+          defaultNodeColor: '#ec5148',
+        }
+      });
+
+      s.refresh();
+      console.log(s.graph.nodes());
+      console.log(s.graph.edges());
+*/
+
+
+///* demo2
+      var i,
+        s,
+        N = 40,
+        E = 80,
+        g = {
+          nodes: [],
+          edges: []
+        };
+
+      // 节点数据
+      for (i = 0; i < N; i++)
+        g.nodes.push({
+          id: 'n' + i,
+          label: 'Node ' + i,
+          x: Math.random(),  // x轴坐标
+          y: Math.random(),  // y轴坐标
+          size: 3,
+        });
+
+      // 连线数据
+      for (i = 0; i < E; i++) {
+        var source = 'n' + (Math.random() * N | 0);
+        var target = 'n' + (Math.random() * N | 0);
+
+        g.edges.push({
+          id: 'e' + i,
+          source: source,  // 开始节点(node id)
+          target: target,  // 目标节点(node id)
+          size: 1,
+          type: 'arrow',  //连线样式
+        });
+      }
+
+
+      sigma.classes.graph.addMethod('neighbors', function(nodeId) {
+        var k,
+            neighbors = {},
+            index = this.allNeighborsIndex[nodeId] || {};
+
+        for (k in index)
+          neighbors[k] = this.nodesIndex[k];
+
+        return neighbors;
+      });
+
+
+
+      // Instantiate sigma:
+      s = new sigma({
+        graph: g,
+        renderer: {
+          container: document.getElementById('graph-container'),
+          type: 'canvas'  // canvas 或 webgl 渲染器
+        },
+        settings: {
+          minNodeSize: 6,
+          maxNodeSize: 6,
+          maxEdgeSize: 1,
+          minEdgeSize: 1,
+          drawHoverNodes: true,
+          enableEdgeHovering: true,
+          defaultEdgeHoverColor: '#33CCFF',
+          edgeHoverColor: '#33CCFF',
+          defaultNodeHoverColor: '#33CCFF',
+          nodeHoverColor: '#33CCFF',
+          defaultNodeColor: '#ec5148',
+        }
+      });
+
+      s.refresh();
+      console.log(s.graph.nodes());
+      console.log(s.graph.edges());
+//*/
+
+
+      //////////plugin////////////////////
+//* u1
+      //  DAG 布局配置
+      // dagre插件需要依赖dagre.js
+      var dagreListener = sigma.layouts.dagre.configure(s, {
+        directed: true, // 是否指定连线的方向
+        rankdir: 'TB',  // 节点排列方向（TB, BT, LR, or RL）
+        easing: 'quadraticInOut', // 布局转换时的动画
+        duration: 400,   // 动画时长
+      });
+      // Start the DAG layout:
+      sigma.layouts.dagre.start(s);
+//*/
+
+///* u2
+      var activeState = sigma.plugins.activeState(s); //批量选取或节点拖动等插件需要
+      var select = sigma.plugins.select(s, activeState);
+      // Initialize the dragNodes plugin:
+      var dragListener = sigma.plugins.dragNodes(s, s.renderers[0], activeState);
+// */
+
+
+//* u3
+      s.bind('clickNode', function(e) {
+        var nodeId = e.data.node.id,
+            edgeId = 'e' + e.data.node.id,
+            nodeX = e.data.node.x,
+            nodeY = e.data.node.y,
+            toKeep = s.graph.neighbors(nodeId);
+        // toKeep[nodeId] = e.data.node;
+
+        s.graph.nodes().forEach(function(n) {
+          if (toKeep[n.id])
+            n.color = '#888888';
+          else
+            n.color = '#ec5148';
+        });
+
+        s.graph.edges().forEach(function(e) {
+          if (toKeep[e.source] && toKeep[e.target])
+            e.color = '#';
+          else
+            e.color = '#ec5148';
+        });
+
+      s.refresh();
+      //sigma.layouts.dagre.start(s);
+    });
+
+  var lassoSetting = {
+      'strokeStyle': 'black',
+      'lineWidth': 2,
+      'fillWhileDrawing': true,
+      'fillStyle': 'rgba(41, 41, 41, 0.2)',
+      'cursor': 'crosshair'
+  };
+
+  var lasso = new sigma.plugins.lasso(s, s.renderers[0], lassoSetting);
+  lasso.bind('selectedNodes', function (event) {
+    var nodes = event.data;
+    console.log(nodes);
+    setTimeout(() => lasso.deactivate(), 1);
+  });
+  s.bind('clickStage', function(e) {
+    lasso.activate();
+  });
+//*/
+    </script>
+</body>
+
+</html>
